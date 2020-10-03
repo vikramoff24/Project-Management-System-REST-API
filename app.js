@@ -20,7 +20,7 @@ const userSchema=
 firstname:String,
 lastname:String,
 password:String,
-mail:String,
+mail_id:String,
 created_at    : { type: Date },
 updated_at    : { type: Date }
 }
@@ -35,3 +35,14 @@ userSchema.pre('save', function(next){
 });
 //model
 const User=mongoose.model("User",userSchema);
+
+app.route("/users")
+.post(function(req,res))
+{
+  const newUser=new User({
+    firstname:req.body.firstname,
+    lastname:req.body.lastname,
+    lastname:req.body.password,
+    mail_id:req.body.mail,
+  })
+}
