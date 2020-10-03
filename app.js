@@ -34,3 +34,4 @@ userSchema.pre('save', function(next){
   next();
 });
 //model
+const User=mongoose.model("User",userSchema);
