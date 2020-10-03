@@ -19,8 +19,8 @@ const userSchema=
 {
 firstname:String,
 lastname:String,
-password:String,
 mail_id:String,
+password:String,
 created_at    : { type: Date },
 updated_at    : { type: Date }
 }
@@ -43,6 +43,20 @@ app.route("/users")
     firstname:req.body.firstname,
     lastname:req.body.lastname,
     lastname:req.body.password,
-    mail_id:req.body.mail,
-  })
-}
+    mail_id:req.body.mail_id,
+    password:req.body.password
+  });
+  newUser.save(function(err))
+  {
+    if(!err)
+    {
+      res.send("Successfully added a new user.");
+    }
+    else{
+    res.send(err);
+    }
+  });
+});
+app.listen(3000, function() {
+  console.log("Server started on port 3000");
+});
