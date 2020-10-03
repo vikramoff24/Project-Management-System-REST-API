@@ -5,25 +5,24 @@ const ejs=require("ejs");
 
 const app= express();
 
-app.set('view engine',ejs);
+app.set('view engine','ejs');
 
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/")
+mongoose.connect("mongodb://localhost:27017/pmsDB",{useNewUrlParser:true,useUnifiedTopology: true })
 
 //Users schema
-
-const userSchema=
-{
+var Schema = mongoose.Schema;
+const userSchema= new Schema({
 firstname:String,
 lastname:String,
 mail_id:String,
 password:String,
 created_at    : { type: Date },
 updated_at    : { type: Date }
-}
+});
 
 userSchema.pre('save', function(next){
   now = new Date();
@@ -35,18 +34,16 @@ userSchema.pre('save', function(next){
 });
 //model
 const User=mongoose.model("User",userSchema);
-
 app.route("/users")
-.post(function(req,res))
+.post(function(req,res)
 {
   const newUser=new User({
     firstname:req.body.firstname,
     lastname:req.body.lastname,
-    lastname:req.body.password,
     mail_id:req.body.mail_id,
     password:req.body.password
   });
-  newUser.save(function(err))
+  newUser.save(function(err)
   {
     if(!err)
     {
@@ -57,6 +54,8 @@ app.route("/users")
     }
   });
 });
+
+
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
