@@ -1,3 +1,4 @@
+//jshint esversion:6
 const express=require("express");
 const bodyParser=require("body-parser");
 const mongoose=require("mongoose");
@@ -14,25 +15,15 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost:27017/pmsDB",{useNewUrlParser:true,useUnifiedTopology: true })
 
 //Users schema
-var Schema = mongoose.Schema;
-const userSchema= new Schema({
+
+const userSchema= {
   id:String,
 firstname:String,
 lastname:String,
 mail_id:String,
 password:String,
-created_at    : { type: Date },
-updated_at    : { type: Date }
-});
+};
 
-userSchema.pre('save', function(next){
-  now = new Date();
-  this.updated_at = now;
-  if ( !this.created_at ) {
-    this.created_at = now;
-  }
-  next();
-});
 //model
 const User=mongoose.model("User",userSchema);
 app.route("/users")
@@ -90,23 +81,23 @@ app.route("/users/:id")
 {
   if(foundUser)
   {
-    // const f=;
-    res.send(foundUser);
+  res.send(foundUser);
   }
   else{
-    res.send("No user matching with that mail id");
+    res.send("No user matching with this id");
   }
 });
 })
 .put(function(req,res)
   {
-    User.update(
+  User.update(
       {id:req.params.id},
-      {firstname:req.params.firstname},
-      {lastname:req.params.lastname},
-      {mail_id:req.params.mail_id},
-      {password:req.params.password},
-      {overwrite:true},
+      {id:req.body.id,
+        firstname:req.body.firstname,
+      lastname:req.body.lastname,
+    mail_id:req.body.mail_id,
+      password:req.body.password},
+  {overwrite:true},
       function(err)
       {
         if(!err)
@@ -115,11 +106,13 @@ app.route("/users/:id")
         }
         else(err)
         {
-          res.send(err);
+          console.log(err);
         }
       }
     );
-  })
+  }).
+
+
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
