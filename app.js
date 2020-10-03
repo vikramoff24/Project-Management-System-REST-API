@@ -16,6 +16,7 @@ mongoose.connect("mongodb://localhost:27017/pmsDB",{useNewUrlParser:true,useUnif
 //Users schema
 var Schema = mongoose.Schema;
 const userSchema= new Schema({
+  id:String,
 firstname:String,
 lastname:String,
 mail_id:String,
@@ -51,6 +52,7 @@ app.route("/users")
 .post(function(req,res)
 {
   const newUser=new User({
+    id:req.body.id,
     firstname:req.body.firstname,
     lastname:req.body.lastname,
     mail_id:req.body.mail_id,
@@ -80,8 +82,22 @@ app.route("/users")
   }
 })
 });
-
-
+//////////////request targeting a specific users/////////
+app.route("/users/:id")
+.get(function(req,res)
+{
+  User.findOne({id:req.params.id},function(err,foundUser)
+{
+  if(foundUser)
+  {
+    // const f=;
+    res.send(foundUser);
+  }
+  else{
+    res.send("No user matching with that mail id");
+  }
+});
+})
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
