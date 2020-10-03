@@ -35,6 +35,19 @@ userSchema.pre('save', function(next){
 //model
 const User=mongoose.model("User",userSchema);
 app.route("/users")
+.get(function(req,res)
+{
+  User.find(function(err,foundUsers)
+  {
+    if(!err)
+    {
+      res.send(foundUsers);
+    }
+    else{
+      res.send(err);
+    }
+  });
+})
 .post(function(req,res)
 {
   const newUser=new User({
@@ -53,6 +66,19 @@ app.route("/users")
     res.send(err);
     }
   });
+})
+.delete(function(req,res)
+{
+  User.deleteMany(function(err)
+{
+  if(!err)
+  {
+    console.log("Successfully deleted all the articles");
+  }
+  else{
+    console.log(err)
+  }
+})
 });
 
 
