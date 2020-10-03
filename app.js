@@ -98,6 +98,28 @@ app.route("/users/:id")
   }
 });
 })
+.put(function(req,res)
+  {
+    User.update(
+      {id:req.params.id},
+      {firstname:req.params.firstname},
+      {lastname:req.params.lastname},
+      {mail_id:req.params.mail_id},
+      {password:req.params.password},
+      {overwrite:true},
+      function(err)
+      {
+        if(!err)
+        {
+          res.send("Successfully Updated users");
+        }
+        else(err)
+        {
+          res.send(err);
+        }
+      }
+    );
+  })
 app.listen(3000, function() {
   console.log("Server started on port 3000");
 });
