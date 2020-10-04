@@ -14,8 +14,7 @@ app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/pmsDB",{useNewUrlParser:true,useUnifiedTopology: true })
 
-//Users schema
-
+//User schema
 const userSchema= {
   id:String,
 firstname:String,
@@ -23,8 +22,7 @@ lastname:String,
 mail_id:String,
 password:String,
 };
-
-//model
+//User model
 const User=mongoose.model("User",userSchema);
 app.route("/users")
 .get(function(req,res)
@@ -36,7 +34,7 @@ app.route("/users")
       res.send(foundUsers);
     }
     else{
-      res.send(err);
+      console.log(err);
     }
   });
 })
@@ -56,7 +54,7 @@ app.route("/users")
       res.send("Successfully added a new user.");
     }
     else{
-    res.send(err);
+  console.log(err);
     }
   });
 })
@@ -66,7 +64,7 @@ app.route("/users")
 {
   if(!err)
   {
-    console.log("Successfully deleted all the articles");
+    res.send("Successfully deleted all the articles");
   }
   else{
     console.log(err)
@@ -120,7 +118,7 @@ app.route("/users/:id")
     res.send("Successfully Updated Users")
   }
   else{
-    res.send(err);
+    console.log(err);
   }
 });
 })
