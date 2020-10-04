@@ -149,14 +149,14 @@ const projectSchema={
   status:Number,
 }
 const Project=mongoose.model("Project",projectSchema);
-app.route("/users")
+app.route("/projects")
 .get(function(req,res)
 {
-  User.find(function(err,foundUsers)
+  projects.find(function(err,foundProjects)
   {
     if(!err)
     {
-      res.send(foundUsers);
+      res.send(foundProjects);
     }
     else{
       console.log(err);
@@ -165,18 +165,18 @@ app.route("/users")
 })
 .post(function(req,res)
 {
-  const newUser=new User({
-    id:req.body.id,
-    firstname:req.body.firstname,
-    lastname:req.body.lastname,
-    mail_id:req.body.mail_id,
-    password:req.body.password
+  const newProject=new Project({
+    id:reg.body.id,
+    name:reg.body.name,
+    description:reg.body.description,
+    author_id:reg.body.author_id,
+    status:reg.body.status,
   });
-  newUser.save(function(err)
+  newProject.save(function(err)
   {
     if(!err)
     {
-      res.send("Successfully added a new user.");
+      res.send("Successfully added a new project.");
     }
     else{
   console.log(err);
