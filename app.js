@@ -110,7 +110,20 @@ app.route("/users/:id")
         }
       }
     );
-  }).
+  })
+  .patch(function(req,res)
+{
+  User.update({id:req.params.id},{$set:req.body},function(err)
+{
+  if(!err)
+  {
+    res.send("Successfully Updated Users")
+  }
+  else{
+    res.send(err);
+  }
+});
+})
 
 
 app.listen(3000, function() {
