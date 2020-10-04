@@ -124,7 +124,22 @@ app.route("/users/:id")
   }
 });
 })
-
+.delete(function(req,res)
+{
+  User.deleteOne(
+    {id:req.params.id},
+    function(err)
+    {
+      if(!err)
+      {
+        res.send("Successfully deleted the User")
+      }
+      else{
+        console.log("err");
+      }
+    }
+  )
+});
 
 app.listen(3000, function() {
   console.log("Server started on port 3000");
