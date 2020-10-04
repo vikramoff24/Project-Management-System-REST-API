@@ -152,7 +152,7 @@ const Project=mongoose.model("Project",projectSchema);
 app.route("/projects")
 .get(function(req,res)
 {
-  projects.find(function(err,foundProjects)
+  Project.find(function(err,foundProjects)
   {
     if(!err)
     {
@@ -185,7 +185,7 @@ app.route("/projects")
 })
 .delete(function(req,res)
 {
-  User.deleteMany(function(err)
+  Project.deleteMany(function(err)
 {
   if(!err)
   {
