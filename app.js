@@ -64,7 +64,7 @@ app.route("/users")
 {
   if(!err)
   {
-    res.send("Successfully deleted all the articles");
+    res.send("Successfully deleted all the users");
   }
   else{
     console.log(err)
@@ -166,11 +166,11 @@ app.route("/projects")
 .post(function(req,res)
 {
   const newProject=new Project({
-    id:reg.body.id,
-    name:reg.body.name,
-    description:reg.body.description,
-    author_id:reg.body.author_id,
-    status:reg.body.status,
+    id:req.body.id,
+    name:req.body.name,
+    description:req.body.description,
+    author_id:req.body.author_id,
+    status:req.body.status,
   });
   newProject.save(function(err)
   {
@@ -189,7 +189,7 @@ app.route("/projects")
 {
   if(!err)
   {
-    res.send("Successfully deleted all the articles");
+    res.send("Successfully deleted all the projects");
   }
   else{
     console.log(err)
