@@ -216,10 +216,10 @@ app.route("/projects/:id")
   User.update(
       {id:req.params.id},
       {id:req.body.id,
-        firstname:req.body.firstname,
-      lastname:req.body.lastname,
-    mail_id:req.body.mail_id,
-      password:req.body.password},
+      name:req.body.name,
+      description:req.body.description,
+      author_id:req.body.author_id,
+      status:req.body.status},
   {overwrite:true},
       function(err)
       {
