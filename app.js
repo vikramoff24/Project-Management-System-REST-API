@@ -260,7 +260,7 @@ app.route("/projects/:id")
 });
 
 //--------------------------------User Groups Collection-----------------------------------//
-
+//UserGroup Schema
 const userGroupSchema={
   id:String,
   name:String,
