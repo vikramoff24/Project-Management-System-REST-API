@@ -232,11 +232,11 @@ app.route("/projects/:id")
   })
   .patch(function(req,res)
 {
-  User.update({id:req.params.id},{$set:req.body},function(err)
+  Project.update({id:req.params.id},{$set:req.body},function(err)
 {
   if(!err)
   {
-    res.send("Successfully Updated Users")
+    res.send("Successfully Updated Targeted Project")
   }
   else{
     console.log(err);
@@ -245,13 +245,13 @@ app.route("/projects/:id")
 })
 .delete(function(req,res)
 {
-  User.deleteOne(
+  Project.deleteOne(
     {id:req.params.id},
     function(err)
     {
       if(!err)
       {
-        res.send("Successfully deleted the User")
+        res.send("Successfully deleted the Project")
       }
       else{
         console.log("err");
