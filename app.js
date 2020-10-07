@@ -289,7 +289,7 @@ app.route("/usergroups")
     name:req.body.name,
     project_id:req.body.project_id,
     user_ids:req.body.user_ids,
-  });
+    });
   newUserGroup.save(function(err)
   {
     if(!err)
@@ -314,7 +314,6 @@ app.route("/usergroups")
   }
 })
 });
-
 //////////////request targeting a specific user group////////////
 
 app.route("/usergroups/:id")
