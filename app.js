@@ -138,8 +138,7 @@ app.route("/users/:id")
     }
   )
 });
-//-------------------------------------------------------//
-//Projects Collection
+//--------------------------------Projects Collection-----------------------------------//
 //project
 const projectSchema={
   id:String,
@@ -196,7 +195,7 @@ app.route("/projects")
   }
 })
 });
-//////////////request targeting a specific users////////////
+//////////////request targeting a specific Project////////////
 app.route("/projects/:id")
 .get(function(req,res)
 {
@@ -252,6 +251,82 @@ app.route("/projects/:id")
       if(!err)
       {
         res.send("Successfully deleted the Project")
+      }
+      else{
+        console.log("err");
+      }
+    }
+  )
+});
+
+//--------------------------------User Groups Collection-----------------------------------//
+
+const userGroupSchema={
+  id:String,
+  name:String,
+  description:String,
+  user_ids:[String],
+}
+const Project=mongoose.model("Project",userGroupSchema);
+app.route("/usergroups/:id")
+.get(function(req,res)
+{
+  UserGroup.findOne({id:req.params.id},function(err,foundUserGroup)
+{
+  if(foundUserGroup)
+  {
+  res.send(foundUserGroup);
+  }
+  else{
+    res.send("No UserGroup matching with this id");
+  }
+});
+})
+.put(function(req,res)
+  {
+  UserGroupGroup.update(
+      {id:req.params.id},
+      {id:req.body.id,
+        firstname:req.body.firstname,
+      lastname:req.body.lastname,
+    mail_id:req.body.mail_id,
+      password:req.body.password},
+  {overwrite:true},
+      function(err)
+      {
+        if(!err)
+        {
+          res.send("Successfully Updated UserGroups");
+        }
+        else(err)
+        {
+          console.log(err);
+        }
+      }
+    );
+  })
+  .patch(function(req,res)
+{
+  UserGroup.update({id:req.params.id},{$set:req.body},function(err)
+{
+  if(!err)
+  {
+    res.send("Successfully Updated UserGroups")
+  }
+  else{
+    console.log(err);
+  }
+});
+})
+.delete(function(req,res)
+{
+  UserGroup.deleteOne(
+    {id:req.params.id},
+    function(err)
+    {
+      if(!err)
+      {
+        res.send("Successfully deleted the UserGroup")
       }
       else{
         console.log("err");
