@@ -146,7 +146,7 @@ const projectSchema={
   name:String,
   description:String,
   author_id:String,
-  status:Number,
+  status:{ type: Number, min: 0, max: 1 },
 }
 const Project=mongoose.model("Project",projectSchema);
 app.route("/projects")
@@ -213,19 +213,15 @@ app.route("/projects/:id")
 })
 .put(function(req,res)
   {
-  User.update(
+  Project.update(
       {id:req.params.id},
-      {id:req.body.id,
-      name:req.body.name,
-      description:req.body.description,
-      author_id:req.body.author_id,
-      status:req.body.status},
+      {id:req.body.id,name:req.body.name,description:req.body.description,author_id:req.body.author_id,status:req.body.status},
   {overwrite:true},
       function(err)
       {
         if(!err)
         {
-          res.send("Successfully Updated users");
+          res.send("Successfully Updated projects");
         }
         else(err)
         {
