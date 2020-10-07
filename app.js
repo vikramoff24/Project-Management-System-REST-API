@@ -332,13 +332,12 @@ app.route("/usergroups/:id")
 })
 .put(function(req,res)
   {
-  UserGroupGroup.update(
+  UserGroup.update(
       {id:req.params.id},
       {id:req.body.id,
-        firstname:req.body.firstname,
-      lastname:req.body.lastname,
-    mail_id:req.body.mail_id,
-      password:req.body.password},
+      name:req.body.name,
+      user_ids:req.body.user_ids,
+      project_id:req.body.project_id},
   {overwrite:true},
       function(err)
       {
