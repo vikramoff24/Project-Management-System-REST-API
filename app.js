@@ -264,10 +264,59 @@ app.route("/projects/:id")
 const userGroupSchema={
   id:String,
   name:String,
-  description:String,
+  project_id:String,
   user_ids:[String],
 }
-const Project=mongoose.model("Project",userGroupSchema);
+const UserGroup=mongoose.model("UserGroup",userGroupSchema);
+app.route("/usergroups")
+.get(function(req,res)
+{
+  UserGroup.find(function(err,foundUserGroups)
+  {
+    if(!err)
+    {
+      res.send(foundUserGroups);
+    }
+    else{
+      console.log(err);
+    }
+  });
+})
+.post(function(req,res)
+{
+  const newUserGroup=new UserGroup({
+    id:req.body.id,
+    name:req.body.name,
+    project_id:req.body.project_id,
+    user_ids:req.body.user_ids,
+  });
+  newUserGroup.save(function(err)
+  {
+    if(!err)
+    {
+      res.send("Successfully added a new UserGroup.");
+    }
+    else{
+  console.log(err);
+    }
+  });
+})
+.delete(function(req,res)
+{
+  UserGroup.deleteMany(function(err)
+{
+  if(!err)
+  {
+    res.send("Successfully deleted all the UserGroups");
+  }
+  else{
+    console.log(err)
+  }
+})
+});
+
+//////////////request targeting a specific user group////////////
+
 app.route("/usergroups/:id")
 .get(function(req,res)
 {
