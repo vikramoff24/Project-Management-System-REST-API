@@ -197,17 +197,17 @@ app.route("/projects")
 })
 });
 //////////////request targeting a specific users////////////
-app.route("/users/:id")
+app.route("/projects/:id")
 .get(function(req,res)
 {
-  User.findOne({id:req.params.id},function(err,foundUser)
+  Project.findOne({id:req.params.id},function(err,foundProject)
 {
-  if(foundUser)
+  if(foundProject)
   {
-  res.send(foundUser);
+  res.send(foundProject);
   }
   else{
-    res.send("No user matching with this id");
+    res.send("No project matching with this id");
   }
 });
 })
